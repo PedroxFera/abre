@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <title>Surpresa — Carta às 00:01</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f6f7fb;color:#111;display:flex;align-items:center;justify-content:center;height:100vh;padding:20px}
+    .card{max-width:720px;background:#fff;padding:28px;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,.1);text-align:center}
+    h1{margin-top:0}
+    .countdown{display:flex;gap:12px;justify-content:center;margin:18px 0}
+    .part{background:#222;color:#fff;padding:12px 16px;border-radius:8px;min-width:72px}
+    .label{font-size:12px;color:#ccc}
+    .surprise{display:none;margin-top:20px;text-align:left;white-space:pre-line}
+    .letter{background:#fafafa;padding:20px;border-radius:8px;border:1px solid #eee}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Um presente te espera 🎁</h1>
+    <p>Esta carta especial será revelada às <strong>00:01</strong> (hora local).</p>
+
+    <div id="countdown">
+      <div class="countdown">
+        <div class="part"><div id="hours">00</div><div class="label">Horas</div></div>
+        <div class="part"><div id="minutes">00</div><div class="label">Minutos</div></div>
+        <div class="part"><div id="seconds">00</div><div class="label">Segundos</div></div>
+      </div>
+    </div>
+
+    <div id="surprise" class="surprise">
+      <div class="letter">
+Ontem quando me preparava para ir para escola, vi uma notificação no Phone, dizia: “Lutércia.🤍‘S 17th birthday. Tomorrow”.
+Não sei como, mas no mesmo dia conheci alguém chamada Vanessa mãe de minha colega que faz aniversário no mesmo dia que tu.
+
+Coincidência? Não sei. 
+Mas de uma coisa tenho certeza, o universo me dizia para lembrar da pessoa especial(autista) que nasceu nesse dia, podemos não nos comunicar, mas o carinho  e amizade ainda existe, and that’s all that matters.
+Peço desculpa por mudar a tua vida tão rápido e ao mesmo ter ido tão rápido.
+Mas é sobre, talvez só foi para te mostrar como deves aceitar ser amada.
+
+Fica bem.
+Xo, Júnior.💋
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      const targetHour = 0;
+      const targetMinute = 1;
+      const now = new Date();
+      const target = new Date(now.getFullYear(), now.getMonth(), now.getDate(), targetHour, targetMinute, 0);
+      if(now >= target){ target.setDate(target.getDate()+1); }
+
+      const elH=document.getElementById('hours');
+      const elM=document.getElementById('minutes');
+      const elS=document.getElementById('seconds');
+      const elSurprise=document.getElementById('surprise');
+      const elCountdown=document.getElementById('countdown');
+
+      function pad(n){return String(n).padStart(2,'0');}
+      function reveal(){
+        elCountdown.style.display="none";
+        elSurprise.style.display="block";
+      }
+      function update(){
+        const now=new Date();
+        let diff=Math.floor((target-now)/1000);
+        if(diff<=0){reveal();clearInterval(timer);return;}
+        const h=Math.floor(diff/3600); diff-=h*3600;
+        const m=Math.floor(diff/60); diff-=m*60;
+        const s=diff;
+        elH.textContent=pad(h); elM.textContent=pad(m); elS.textContent=pad(s);
+      }
+      update();
+      const timer=setInterval(update,1000);
+    })();
+  </script>
+</body>
+</html>
